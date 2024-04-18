@@ -35,8 +35,9 @@ app.get('*', (req, res, next) => {
     next();
 });
 
+// Redirect root to login page
 app.get('/', (req, res) => {
-    res.render('index', { title: "Home Page" });
+    res.redirect('/users/login');
 });
 
 // Define your routes here...
