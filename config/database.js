@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const connectWithRetry = () => {
-    mongoose.connect('mongodb://localhost:27017/restaurant', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+    mongoose.connect('mongodb://localhost:27017/restaurant', { useNewUrlParser: true, useUnifiedTopology: true,family: 4}, (err) => {
         if (err) {
             console.error('Error connecting to MongoDB:', err);
             // Retry connection after a delay
