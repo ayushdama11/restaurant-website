@@ -23,32 +23,20 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'A21E14d4_g1fdz55415_6ZRT41641ZE_561erf1e_2g1fg1fg0_e',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 * 20 }
+    cookie: {maxAge: 60000 * 20}
 }));
 
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware to pass user data to views
-app.use((req, res, next) => {
+app.get('*', (req, res, next) => {
     res.locals.user = req.user || null;
     next();
 });
 
-// Login route handler
-app.post('/users/login', (req, res) => {
-    // Your login authentication logic goes here
-
-    // Assuming authentication is successful
-    // Redirect to user profile page
-    res.redirect('/users/profile');
-});
-
-// Profile route handler
-app.get('/users/profile', (req, res) => {
-    // Render the user profile page
-    res.render('profile', { user: req.user });
+app.get('/', (req, res) => {
+    res.render('index', { title: "Home Page" });
 });
 
 // Define your routes here...
@@ -82,12 +70,10 @@ app.use('/waiter', waiter);
 const users = require('./routes/user.routes');
 app.use('/users', users);
 
-// 404 route handler
-app.get('*', function(req, res) {
+app.get('*', function(req, res){
     res.status(404).redirect('/');
 });
 
-// Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
